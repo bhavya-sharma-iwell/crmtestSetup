@@ -77,7 +77,8 @@ module.exports = {
         ],
         extensions: ['.js', '.jsx'],
         alias: {
-            css: 'crm/media/css'
+            css: 'crm/media/css',
+            '@': path.resolve(__dirname, './')
         },
         fallback: {
             "crypto": require.resolve('crypto-browserify'),

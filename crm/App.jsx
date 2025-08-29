@@ -1,6 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Cookie from './utils/Cookie';
+import  {Button}  from '../components/ui/button';
+import '../src/styles/global.css';
+// import { Button } from "@/components/ui/button";
 
 
 // This is the actual dashboard content, separated into its own component.
@@ -19,6 +22,17 @@ const DashboardPage = () => {
       >
         Go to Mint
       </button>
+      {/* <Button variant="outline">Click me</Button> */}
+
+      <div className="flex flex-wrap items-center gap-2 md:flex-row pt-20">   
+      <Button variant="outline">Button</Button>  
+       </div>
+
+      {/* <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-3xl font-bold text-blue-600">
+        Hello Tailwind with React! 👋
+      </h1>
+    </div> */}
     </div>
   );
 };

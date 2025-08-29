@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx'; // Import the new App component which contains the router
-
+import '../src/styles.css';
 // Get the root element from the HTML document.
 const rootElement = document.getElementById('root');
 
