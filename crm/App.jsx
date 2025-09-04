@@ -3,8 +3,32 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import Cookie from './utils/Cookie';
 import  {Button}  from '../components/ui/button';
 import '../src/styles/global.css';
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/app-sidebar"
+import CrmRoutes from  'crm/routes'
 // import { Button } from "@/components/ui/button";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu"
+import {NavigationMenuDemo} from "./navigation";
+// import { Link } from "next/link"
 
+// export function NavigationMenuDemo() {
+//   return (
+//     <NavigationMenuItem>
+//       <NavigationMenuLink asChild>
+//         <Link href="/docs">Documentation</Link>
+//       </NavigationMenuLink>
+//     </NavigationMenuItem>
+//   )
+// }
 
 // This is the actual dashboard content, separated into its own component.
 const DashboardPage = () => {
@@ -14,7 +38,21 @@ const DashboardPage = () => {
   };
 
   return (
+
+    <div>
+        <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavigationMenuLink>Link</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+      <NavigationMenuDemo/>
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
+    
       <h1 className="text-3xl font-bold mb-6">Welcome to CRM</h1>
       <button
         onClick={handleRedirect}
@@ -34,21 +72,35 @@ const DashboardPage = () => {
       </h1>
     </div> */}
     </div>
+    </div>
   );
 };
 
 
+// export default function Layout({ children }) {
+//   return (
+//     <SidebarProvider>
+//       <AppSidebar />
+//       <main>
+//         <SidebarTrigger />
+//         {children}
+//       </main>
+//     </SidebarProvider>
+//   )
+// }
+
 // --- Main App Component with Routing ---
 // This component handles the different pages of your application.
-const Layout = () => {
+const Layout = (children) => {
     return (
-        // A simple layout with a header and an Outlet for nested routes
-        <div className="p-8">
-            <header className="mb-4">
-                <h1 className="text-2xl font-bold text-center">CRM App</h1>
-            </header>
-            <Outlet /> {/* This is where the child route component will be rendered */}
-        </div>
+       
+        <SidebarProvider >
+        <AppSidebar />
+        <main>
+          <SidebarTrigger />
+          <CrmRoutes />
+        </main>
+      </SidebarProvider>
     );
 };
 
@@ -84,23 +136,36 @@ function App() {
     <Fragment>
    {Cookie.getCookie('c_ux') && 
 
-    <Router basename="crm">
-      <Routes>
-        {/*
-          The parent route is now a layout route that will render a shared header
-          and use an <Outlet /> to display the child route.
-        */}
-        <Route path="/" element={<AuthWrapper><Layout/></AuthWrapper>}>
-  
-          <Route index element={<div className="p-8 text-center text-gray-500">Welcome! Please navigate to the dashboard.</div>} />
-          {/*
-            The dashboard route is now nested. The full path is `/dashboard`.
-          */}
-          <Route path="/dashboard" element={<DashboardPage />} />
-        </Route>
-      </Routes>
-    </Router>}
+        <Fragment>
+
+          <Router basename="crm">
+            <AuthWrapper>
+
+                <Layout
+            
+                children = {<CrmRoutes />} />
+              </AuthWrapper>
+
+            {/* <Routes>
+            
+              <Route path="/" element={}>
+
+                <Route index element={<div className="p-8 text-center text-gray-500">Welcome! Please navigate to the dashboard.</div>} />
+              
+                <Route path="/dashboard" element={<DashboardPage />} />
+              </Route>
+            </Routes> */}
+            {/* <Layout /> */}
+          </Router>
+        </Fragment>
+
+
+
+    
+    
+    }
     </Fragment>
+
           
   );
 }
