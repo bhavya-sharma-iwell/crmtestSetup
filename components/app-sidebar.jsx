@@ -68,7 +68,7 @@ export function AppSidebar(props = {}) {
               alt={logoName}
               className="logoImg w-8 h-8 rounded-full"
             />
-            <span className="text-lg font-medium text-gray-900">Investwell</span>
+            <span className="text-lg font-medium text-900">Investwell</span>
           </a>
         </h1>
       </SidebarHeader>

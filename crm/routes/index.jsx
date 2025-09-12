@@ -1,49 +1,23 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-// import Loader from '../components/loaders'
-import Loadable from 'react-loadable'
-import * as commonConst from '../constants'
-// import Tasks from '../features/tasks'
+import { Route, Routes } from 'react-router-dom'
+import React, { Suspense } from 'react'
 
-const Loading = () => <div class='posRelative cl loaderMinHeight initialLoader'>
-  {/* <Loader
-    loaderType='line'
-    loaderWidth={commonConst.LOADER_WIDTH[3].width}
-    loaderHeight={commonConst.LOADER_WIDTH[3].height}
-    loaderMessage={commonConst.CAPTION_MESSAGE[2].label}
-  /> */}
-</div>
+const Loading = () => <div className='posRelative cl loaderMinHeight initialLoader'></div>
 
-const Dashboard = Loadable({
-  loader: () => import('../features/dashboard'),
-  loading: Loading,
-})
-
-const Tasks = Loadable({
-  loader: () => import('../features/tasks'),
-  loading: Loading,
-})
-
-const Leads = Loadable({
-  loader: () => import('../features/leads'),
-  loading: Loading,
-})
-
-const Clients = Loadable({
-  loader: () => import('../features/clients'),
-  loading: Loading,
-})
-
+const Dashboard = React.lazy(() => import('../features/dashboard'))
+const Tasks = React.lazy(() => import('../features/tasks'))
+const Leads = React.lazy(() => import('../features/leads'))
+const Clients = React.lazy(() => import('../features/clients'))
 
 const CrmRoutes = () => {
   return (
+    <Suspense fallback={<Loading />}>
       <Routes>
-          <Route path='/crm/dashboard' element={<Dashboard />} />
-          <Route path='/crm/tasks' element={<Tasks />} />
-          <Route path='/crm/leads' element={<Leads />} />
-          <Route path='/crm/clients' element={<Clients />} />
-
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/tasks' element={<Tasks />} />
+        <Route path='/leads' element={<Leads />} />
+        <Route path='/clients' element={<Clients />} />
       </Routes>
+    </Suspense>
   )
 }
 
